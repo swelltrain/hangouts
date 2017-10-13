@@ -1,0 +1,9 @@
+name: hangouts
+version: 0.1.0
+
+authors:
+  - Stephen Philp <stephen@shelf.com>
+
+crystal: 0.22.0
+
+license: MIT
