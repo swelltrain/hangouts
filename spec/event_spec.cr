@@ -19,4 +19,10 @@ describe Hangouts::Event do
       end
     end
   end
+
+  describe "#formatted_message" do
+    it "formats the message" do
+      Hangouts::Event.new("event_id", "sender_id", "timestamp", %w(one two three)).formatted_message.should eq("one two three")
+    end
+  end
 end

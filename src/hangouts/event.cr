@@ -11,5 +11,9 @@ module Hangouts
     def message
       @message
     end
+
+    def formatted_message
+      message.reduce("") { |memo, value| memo += "#{value} "}.chomp(' ')
+    end
   end
 end
