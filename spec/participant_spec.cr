@@ -27,4 +27,14 @@ describe Participant do
       end
     end
   end
+
+  describe "#==" do
+    it "can compare participants" do
+      p1 = Participant.new("gaia", "id", "spec", "phone")
+      p2 = Participant.new("gaia", "id", "spec", "phone")
+      p3 = Participant.new("gaia_NEW", "id", "spec", "phone")
+      (p1 == p2).should eq(true)
+      (p1 == p3).should eq(false)
+    end
+  end
 end
