@@ -32,7 +32,7 @@ describe Participant do
     it "can compare participants" do
       p1 = Participant.new("gaia", "id", "spec", "phone")
       p2 = Participant.new("gaia", "id", "spec", "phone")
-      p3 = Participant.new("gaia_NEW", "id", "spec", "phone")
+      p3 = Participant.new("gaia_NEW", "id", "spec NEW", "phone")
       (p1 == p2).should eq(true)
       (p1 == p3).should eq(false)
     end
