@@ -8,6 +8,5 @@ module Hangouts
     if conversation.has_participant?(melanie)
       conversation.sorted_events.each { |event| puts event }
     end
-
   end
 end
