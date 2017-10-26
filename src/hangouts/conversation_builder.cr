@@ -3,6 +3,8 @@ module Hangouts
     private getter :data
     def initialize(data : JSON::Any)
       @data = data
+      @participants = Array(Participant).new
+      @events = Array(Hangouts::Event).new
     end
 
     def call
@@ -12,21 +14,21 @@ module Hangouts
     end
 
     private def participants
-      participants = Array(Participant).new
+      return @participants if @participants.any?
       data["conversation_state"]["conversation"]["participant_data"].each do |participant_data|
           begin
             gaia_id = participant_data["id"]["gaia_id"].as_s
             chat_id = participant_data["id"]["chat_id"].as_s
             name = participant_data["fallback_name"].as_s
-            participants << Participant.new(gaia_id, chat_id, name)
+            @participants << Participant.new(gaia_id, chat_id, name)
           rescue KeyError
           end
       end
-      participants
+      @participants
     end
 
     private def events
-      events = Array(Hangouts::Event).new
+      return @events if @events.any?
       text = "TEXT" #moving it outside the loop so it is not re-created each time
       data["conversation_state"]["event"].each do |event_data|
         event_id = event_data["event_id"].as_s
@@ -40,9 +42,9 @@ module Hangouts
         rescue KeyError
           # noop
         end
-        events << Hangouts::Event.new(event_id, sender_id, timestamp, messages)
+        @events << Hangouts::Event.new(event_id, sender_id, timestamp, messages)
       end
-      events
+      @events
     end
   end
 end
